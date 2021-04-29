@@ -1,162 +1,164 @@
 <template>
   <main class="container--main">
     <section class="search-channel">
-      <div class="search-channel__wrapper">
-        <div class="input-block input-block--name">
-          <label for="id-channel">Название канала или ссылка на канал</label>
-          <input class="input" id="id-channel" placeholder="Ввести название канала или ссылку...">
+      <form v-on:submit.prevent="getData">
+        <div class="search-channel__wrapper">
+          <div class="input-block input-block--name">
+            <label for="id-channel">Название канала или ссылка на канал</label>
+            <input class="input" v-model="channelName" id="id-channel"
+                   placeholder="Ввести название канала или ссылку...">
+          </div>
+          <button class="button" type="button">Расширенный поиск</button>
         </div>
-        <button class="button" type="button">Расширенный поиск</button>
-      </div>
-      <div class="advanced-search__wrapper">
-        <div class="advanced-search-inputs">
-          <div class="advanced-search__column">
-            <div class="input-block">
-              <label for="category">Категория</label>
-              <input class="input" id="category" placeholder="Ввести категорию">
+        <div class="advanced-search__wrapper">
+          <div class="advanced-search-inputs">
+            <div class="advanced-search__column">
+              <div class="input-block">
+                <label for="category">Категория</label>
+                <input class="input" id="category" placeholder="Ввести категорию">
+              </div>
+              <div class="input-block">
+                <label for="description">Описание</label>
+                <input class="input" id="description" placeholder="Ввести описание">
+              </div>
+              <div class="input-block">
+                <label for="type-channel">Тип канала</label>
+                <select class="input" id="type-channel">
+                  <option>Выбрать тип канала</option>
+                </select>
+              </div>
+              <div class="input-block input-block--checkbox">
+                <input type="checkbox" class="checkbox__input visually-hidden" id="verified">
+                <label for="verified">Только проверенные каналы</label>
+              </div>
             </div>
-            <div class="input-block">
-              <label for="description">Описание</label>
-              <input class="input" id="description" placeholder="Ввести описание">
+            <div class="advanced-search__column">
+              <div class="input-block">
+                <label for="subscriber-from">Подписчики</label>
+                <div class="input-wrapper">
+                  <div class="input-group">
+                    <span class="input-group-text">от</span>
+                    <input class="input input--filter" id="subscriber-from" placeholder="500">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text">до</span>
+                    <input class="input input--filter" id="subscriber-before" placeholder="10 000">
+                  </div>
+                </div>
+              </div>
+              <div class="input-block">
+                <label for="er-from">ER%</label>
+                <div class="input-wrapper">
+                  <div class="input-group">
+                    <span class="input-group-text">от</span>
+                    <input class="input input--filter" id="er-from" placeholder="1">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text">до</span>
+                    <input class="input input--filter" id="er-before" placeholder="25">
+                  </div>
+                </div>
+              </div>
+              <div class="input-block">
+                <label for="subscriber-from">Упоминаний за неделю</label>
+                <div class="input-wrapper">
+                  <div class="input-group">
+                    <span class="input-group-text">от</span>
+                    <input class="input input--filter" id="reference-from" placeholder="150">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text">до</span>
+                    <input class="input input--filter" id="reference-before" placeholder="500">
+                  </div>
+                </div>
+              </div>
+              <div class="input-block input-block--checkbox">
+                <input type="checkbox" class="checkbox__input visually-hidden" id="sale">
+                <label for="sale">Только каналы со скидкой</label>
+              </div>
             </div>
-            <div class="input-block">
-              <label for="type-channel">Тип канала</label>
-              <select class="input" id="type-channel">
-                <option>Выбрать тип канала</option>
-              </select>
-            </div>
-            <div class="input-block input-block--checkbox">
-              <input type="checkbox" class="checkbox__input visually-hidden" id="verified">
-              <label for="verified">Только проверенные каналы</label>
+            <div class="advanced-search__column">
+              <div class="input-block">
+                <label for="views-post-from">Просмотров на пост</label>
+                <div class="input-wrapper">
+                  <div class="input-group">
+                    <span class="input-group-text">от</span>
+                    <input class="input input--filter" id="views-post-from" placeholder="500">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text">до</span>
+                    <input class="input input--filter" id="views-post-before" placeholder="10 000">
+                  </div>
+                </div>
+              </div>
+              <div class="input-block">
+                <label for="views-tg-from">Просмотры Telegraph</label>
+                <div class="input-wrapper">
+                  <div class="input-group">
+                    <span class="input-group-text">от</span>
+                    <input class="input input--filter" id="views-tg-from" placeholder="100">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text">до</span>
+                    <input class="input input--filter" id="views-tg-before" placeholder="500">
+                  </div>
+                </div>
+              </div>
+              <div class="input-block">
+                <label for="number-reviews-from">Количетво отзывов</label>
+                <div class="input-wrapper">
+                  <div class="input-group">
+                    <span class="input-group-text">от</span>
+                    <input class="input input--filter" id="number-reviews-from" placeholder="100">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text">до</span>
+                    <input class="input input--filter" id="number-reviews-before" placeholder="500">
+                  </div>
+                </div>
+              </div>
+              <div class="input-block">
+                <label for="post-price-from">Цена за пост</label>
+                <div class="input-wrapper">
+                  <div class="input-group">
+                    <span class="input-group-text">от</span>
+                    <input class="input input--filter" id="post-price-from" placeholder="1500">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text">до</span>
+                    <input class="input input--filter" id="post-price-before" placeholder="5000">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="advanced-search__column">
-            <div class="input-block">
-              <label for="subscriber-from">Подписчики</label>
-              <div class="input-wrapper">
-                <div class="input-group">
-                  <span class="input-group-text">от</span>
-                  <input class="input input--filter" id="subscriber-from" placeholder="500">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">до</span>
-                  <input class="input input--filter" id="subscriber-before" placeholder="10 000">
-                </div>
+          <div class="buttons-search">
+            <div class="button-wrapper">
+              <p class="button-head">Категории</p>
+              <div class="button-container">
+                <p class="button-search-active">Музыка</p>
+                <p>Бизнес</p>
+                <p>Фильмы</p>
+                <p>Видео</p>
+                <p>Ужасы</p>
+                <p>Смех</p>
+                <p>Юмор</p>
               </div>
             </div>
-            <div class="input-block">
-              <label for="er-from">ER%</label>
-              <div class="input-wrapper">
-                <div class="input-group">
-                  <span class="input-group-text">от</span>
-                  <input class="input input--filter" id="er-from" placeholder="1">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">до</span>
-                  <input class="input input--filter" id="er-before" placeholder="25">
-                </div>
-              </div>
-            </div>
-            <div class="input-block">
-              <label for="subscriber-from">Упоминаний за неделю</label>
-              <div class="input-wrapper">
-                <div class="input-group">
-                  <span class="input-group-text">от</span>
-                  <input class="input input--filter" id="reference-from" placeholder="150">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">до</span>
-                  <input class="input input--filter" id="reference-before" placeholder="500">
-                </div>
-              </div>
-            </div>
-            <div class="input-block input-block--checkbox">
-              <input type="checkbox" class="checkbox__input visually-hidden" id="sale">
-              <label for="sale">Только каналы со скидкой</label>
-            </div>
-          </div>
-          <div class="advanced-search__column">
-            <div class="input-block">
-              <label for="views-post-from">Просмотров на пост</label>
-              <div class="input-wrapper">
-                <div class="input-group">
-                  <span class="input-group-text">от</span>
-                  <input class="input input--filter" id="views-post-from" placeholder="500">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">до</span>
-                  <input class="input input--filter" id="views-post-before" placeholder="10 000">
-                </div>
-              </div>
-            </div>
-            <div class="input-block">
-              <label for="views-tg-from">Просмотры Telegraph</label>
-              <div class="input-wrapper">
-                <div class="input-group">
-                  <span class="input-group-text">от</span>
-                  <input class="input input--filter" id="views-tg-from" placeholder="100">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">до</span>
-                  <input class="input input--filter" id="views-tg-before" placeholder="500">
-                </div>
-              </div>
-            </div>
-            <div class="input-block">
-              <label for="number-reviews-from">Количетво отзывов</label>
-              <div class="input-wrapper">
-                <div class="input-group">
-                  <span class="input-group-text">от</span>
-                  <input class="input input--filter" id="number-reviews-from" placeholder="100">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">до</span>
-                  <input class="input input--filter" id="number-reviews-before" placeholder="500">
-                </div>
-              </div>
-            </div>
-            <div class="input-block">
-              <label for="post-price-from">Цена за пост</label>
-              <div class="input-wrapper">
-                <div class="input-group">
-                  <span class="input-group-text">от</span>
-                  <input class="input input--filter" id="post-price-from" placeholder="1500">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">до</span>
-                  <input class="input input--filter" id="post-price-before" placeholder="5000">
-                </div>
+            <div class="button-wrapper">
+              <p class="button-head">Период</p>
+              <div class="button-container">
+                <p class="button-search-active">Вчера</p>
+                <p>День назад</p>
+                <p>7 дней</p>
+                <p>30 дней</p>
+                <p>Год</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="buttons-search">
-          <div class="button-wrapper">
-            <p class="button-head">Категории</p>
-            <div class="button-container">
-              <p class="button-search-active">Музыка</p>
-              <p>Бизнес</p>
-              <p>Фильмы</p>
-              <p>Видео</p>
-              <p>Ужасы</p>
-              <p>Смех</p>
-              <p>Юмор</p>
-            </div>
-          </div>
-          <div class="button-wrapper">
-            <p class="button-head">Период</p>
-            <div class="button-container">
-              <p class="button-search-active">Вчера</p>
-              <p>День назад</p>
-              <p>7 дней</p>
-              <p>30 дней</p>
-              <p>Год</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="paginator">
-      </div>
+        <input type="submit" value="subm" class="visually-hidden">
+      </form>
     </section>
     <section>
       <table class="channel-table">
@@ -250,29 +252,30 @@ export default {
     return {
       'channels': [],
       'pagesCount': 0,
-      'currentPage': 1
+      'currentPage': 1,
+      'channelName': ''
     }
   },
   methods: {
-    getData: function (page) {
-      fetch('http://89.108.64.223/api/v1/list?page=' + page).then((response) => response.json())
+    getData: function () {
+      fetch(`http://89.108.64.223/api/v1/list?page=${this.currentPage}&findName=${this.channelName}`)
+              .then((response) => response.json())
         .then((channels) => {
           this.pagesCount = channels.pageCount;
           this.channels = channels.list;
         });
     },
     pageClickHandler: function (page) {
-      this.getData(page);
       this.currentPage = page;
+      this.getData();
     }
   },
   created: function () {
-    this.getData(0);
+    this.getData();
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .paginator__list li:first-child,
 .paginator__list li:last-child {
