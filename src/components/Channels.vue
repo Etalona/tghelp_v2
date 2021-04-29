@@ -197,7 +197,7 @@
             </div>
             <div class="main-info__text-wrapper">
               <p class="main-info__name">{{ channel.name }}</p>
-              <a class="main-info__tg" href="#">@{{ channel.username }}</a>
+              <a class="main-info__tg" :href="'https://t.me/' + channel.username" target="_blank">@{{ channel.username }}</a>
               <span class="main-info__section">Раздел канала</span>
             </div>
           </td>
